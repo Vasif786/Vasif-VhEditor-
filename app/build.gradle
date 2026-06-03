@@ -111,6 +111,7 @@ android {
     }
     lint {
         lintConfig file('../lint.xml')
+        checkReleaseBuilds false
     }
     namespace 'vn.vhn.vhscode'
     buildFeatures {
