@@ -39,13 +39,7 @@ android {
     defaultConfig {
         applicationId "com.termux"
         minSdkVersion project.properties.minSdkVersion.toInteger()
-        if (System.env['GPLAY_BUILD'] == '1') {
-            buildConfigField "Boolean", "GOOGLEPLAY_BUILD", "true"
-            defaultConfig.targetSdkVersion 30 // google play require minimum version to be 30
-        } else {
-            buildConfigField "Boolean", "GOOGLEPLAY_BUILD", "false"
-            defaultConfig.targetSdkVersion 28 // Dont update - /data/data no longer executable
-        }
+        targetSdkVersion project.properties.targetSdkVersion.toInteger()
         versionCode packageJson.config.versionCode
         versionName System.getenv("CI_VERSION_NAME") ?: "git describe --tags --abbrev=0".execute().text.trim()
 
@@ -266,4 +260,3 @@ afterEvaluate {
 }
 
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
